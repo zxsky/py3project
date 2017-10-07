@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block headcontent %}
+<hr>
+<h3>Welcome! You Can
+<a class="btn btn-secondary" href="{{ url_for('main') }}" role="button">back to index</a>
+Here
+</h3>
+{% endblock %}
+
+{% block content %}
+
+<form class="form" method="POST">
+    {{ form.hidden_tag() }}
+
+       {{ form.username.label }}<br>
+       {{ form.username }}
+       <br>
+       {{ form.password.label }}<br>
+       {{ form.password }}
+       <br>
+       {{ form.confirm.label }}<br>
+       {{ form.confirm }}
+       <br>
+       {{ form.submit }}
+
+</form>
+{% endblock %}

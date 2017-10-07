@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block headcontent %}
+<hr>
+<h3>Hello, <b><i>{{session['username']}}</i></b>! You Can
+<a class="btn btn-secondary" href="{{ url_for('profile',username = session['username']) }}" role="button">back to profile</a>
+Here
+</h3>
+{% endblock %}
+
+{% block content %}
+
+{% if row is none %}
+<h3>You have not uploaded any image yet!
+</h3>
+{% endif %}
+
+{% for row in cursor %}
+    <div class="col-md-2">
+         <a href="{{ url_for('imageview', username=row[0], imageid = row[1]) }}">
+         <img src="../static/images_uploaded/{{row[2]}}" class="img-thumbnail">
+         </a>
+    </div>
+{% endfor %}
+{% endblock %}

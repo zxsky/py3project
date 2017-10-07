@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block headcontent %}
+<hr>
+<h1>Welcome Back, <b><i>{{username}}</i></b>! You Can:
+    <a class="btn btn-secondary" href="{{ url_for('logout') }}" role="button">logout</a>
+</h1>
+
+{% endblock %}
+
+{% block content %}
+<div class="col-md-5">
+    <h2>Upload New Images:</h2>
+    <br>
+    <p><a class="btn btn-secondary" href="{{ url_for('upload_image') }}" role="button">Upload</a></p>
+</div>
+
+<div class="col-md-1">
+    <h2>OR:</h2>
+</div>
+
+<div class="col-md-5">
+    <h2>Browse Your Images:</h2>
+    <br>
+    <p><a class="btn btn-secondary" href="{{ url_for('image_list',username=username) }}" role="button">Browse</a></p>
+</div>
+
+{% endblock %}

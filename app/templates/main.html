@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="col-md-5">
+    <h2>Already Have An Account?</h2>
+    <p> </p>
+    <p><a class="btn btn-secondary" href="{{ url_for('login') }}" role="button">Login</a></p>
+</div>
+<div class="col-md">
+    <h2>OR:</h2>
+</div>
+<div class="col-md-5">
+    <h2>Create Your Account:</h2>
+    <p> </p>
+    <p><a class="btn btn-secondary" href="{{ url_for('register') }}" role="button">Register</a></p>
+</div>
+
+{% endblock %}

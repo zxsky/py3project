@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block headcontent %}
+<hr>
+<h3>Hello, <b><i>{{session['username']}}</i></b>! You Can
+<a class="btn btn-secondary" href="{{ url_for('profile',username = session['username']) }}" role="button">back to profile</a>
+Here. Or <a class="btn btn-secondary" href="{{ url_for('image_list',username = session['username']) }}" role="button">back to image list</a>
+</h3>
+{% endblock %}
+
+{% block content %}
+
+    {% for col in cursor%}
+        <div class="col-md-12">
+
+             <img src="{{url_for('static', filename = 'images_uploaded/' + col)}}" >
+
+        </div>
+    {% endfor %}
+{% endblock %}

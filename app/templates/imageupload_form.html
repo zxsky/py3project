@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block headcontent %}
+<hr>
+<h3>Hello, <b><i>{{session['username']}}</i></b>! You Can
+<a class="btn btn-secondary" href="{{ url_for('profile',username = session['username']) }}" role="button">back to profile</a>
+Here
+</h3>
+{% endblock %}
+
+{% block content %}
+<div class="col-md-8">
+    <h2>Upload New Image:</h2>
+    <form action="/fileupload" enctype="multipart/form-data" method="post">
+        <div class='form-group'>
+            <label class="custom-file" >
+                <input type="file" id="file" name="image_file">
+                <!--<span class="custom-file-control"></span>-->
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary" value="Send">Submit</button>
+        <button type="reset" class="btn btn-default" value="Reset">Reset</button>
+    </form>
+</div>
+{%endblock%}
