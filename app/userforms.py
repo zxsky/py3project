@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for, flash, g, session
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
+from wtforms import StringField, SubmitField, PasswordField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 #from werkzeug.security import generate_password_hash,check_password_hash
@@ -87,6 +87,30 @@ def login_required(func):
 #         return check_password_hash(self.pw_hash,password)
 
 
+# Verify Identity
+def verify(username, password):
+    cnx = connect_DB()
+    cursor = cnx.cursor()
+    query = '''SELECT * FROM user WHERE username = %s'''
+    cursor.execute(query, (username,))
+    if cursor.fetchone() is None:
+        return -1 #User does not exist
+    else:
+        #
+        query = '''SELECT password FROM user WHERE username = %s'''
+        cursor.execute(query, (username,))
+        myenPassWord = cursor.fetchone()
+        if not bcrypt.check_password_hash(myenPassWord[0], password):
+            
+            # query = '''SELECT * FROM user WHERE username = %s AND password = %s'''
+            # cursor.execute(query, (username, password))
+            # if cursor.fetchone() is None:
+            
+            return 1 # Password doesn't match
+        else:
+            return 0
+
+
 @webapp.route('/logout')
 @login_required
 def logout():
@@ -101,31 +125,19 @@ def login():
     if form.validate_on_submit():
         username = request.form.get('username')
         password = request.form.get('password')
-        cnx = connect_DB()
-        cursor = cnx.cursor()
-        query = '''SELECT * FROM user WHERE username = %s'''
-        cursor.execute(query,(username,))
-        if cursor.fetchone() is None:
+        result = verify(username, password)
+        if result == -1: #User does not exist
             flash("The username does not exist", 'warning')
             return render_template("/login_form.html", form=form)
-        else:
-            #
-            query = '''SELECT password FROM user WHERE username = %s'''
-            cursor.execute(query, (username,))
-            myenPassWord = cursor.fetchone()
-            if not bcrypt.check_password_hash(myenPassWord[0],password):
-
-            # query = '''SELECT * FROM user WHERE username = %s AND password = %s'''
-            # cursor.execute(query, (username, password))
-            # if cursor.fetchone() is None:
-
-                flash("The password is wrong!", 'warning')
-                return render_template("/login_form.html", form=form)
-            else:
-                flash("Login Success!", 'success')
-                session['logged_in']= True
-                session['username']= username
-                return redirect(url_for('profile', username=username))
+        if result == 1: # password does not match
+            flash("The password is wrong!", 'warning')
+            return render_template("/login_form.html", form=form)
+            
+        if result == 0:
+            flash("Login Success!", 'success')
+            session['logged_in']= True
+            session['username']= username
+            return redirect(url_for('profile', username=username))
     return render_template("/login_form.html", form=form)
 
 

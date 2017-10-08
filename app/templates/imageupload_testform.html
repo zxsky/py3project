@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block headcontent %}
+<hr>
+<h3>Hello, You Can Test Upload Here
+</h3>
+{% endblock %}
+
+{% block content %}
+<div class="col-md-8">
+    <h2>Upload New Image:</h2>
+    <form action="/test/FileUpload" enctype="multipart/form-data" method="post">
+       User ID <input type="text" name="userID"><br>
+       Password <input type="text" name="password"><br>
+
+   	What is the image files to upload? <input type="file" name="uploadedfile"><br>
+
+   	<input type="submit" value="Send">
+	<input type="reset">
+    </form>
+</div>
+{%endblock%}
