@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template, redirect, url_for, flash, g, session
-from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 
 import pymysql
 from config import db_config
@@ -125,7 +124,7 @@ def upload():
     else:
         flash('Upload Failed!')
         return redirect(url_for('profile', username=session['username']))
-    flash('File Uploaded Successfully!', 'warning')
+    flash('File Uploaded Successfully!', 'success')
     
     #Close database here
     # return render_template("/user_profile.html", username=session['username'])
@@ -158,12 +157,12 @@ def upload_test():
     
         if uploadedfile.filename == '':
             # return 'Missing file name'
-            flash("There is no file name", 'warning')
+            flash("There is no file name selected", 'warning')
             return render_template("/imageupload_testform.html")
         
         if uploadedfile and allowed_file(uploadedfile.filename):
             savefile(uploadedfile, username)
-            flash('File Uploaded Successfully!', 'warning')
+            flash('File Uploaded Successfully!', 'success')
             return redirect('/test/FileUpload/form')
 
     flash("Unrecognized User", 'warning')

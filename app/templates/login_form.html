@@ -1,31 +1,45 @@
 {% extends "base.html" %}
 
-{% block headcontent %}
-<hr>
-<h3>Welcome! You Can
-<a class="btn btn-secondary" href="{{ url_for('main') }}" role="button">back to index</a>
-Here
-</h3>
-{% endblock %}
 
 {% block content %}
+<div class="site-wrapper">
+   <div class="site-wrapper-inner">
+      <div class="cover-container">
 
+           <div class="masthead clearfix">
+            <div class="inner">
+              <h5 class="masthead-brand">ECE1779-Assignment1</h5>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="{{ url_for('main') }}">Home</a></li>
 
-<form class="form" method="POST">
-    {{ form.hidden_tag() }}
+                </ul>
+              </nav>
+            </div>
+          </div>
 
-       {{ form.username.label }}<br>
-       {{ form.username }}
-       <br>
-       {{ form.password.label }}<br>
-       {{ form.password }}
-       <br>
-       {{ form.submit }}
+         <form class="form" method="POST">
+             {{ form.hidden_tag() }}
+                <h4>Login Page</h4>
+                <br>
 
-</form>
+                {{ form.username(placeholder="Username") }}
+                <br><br>
 
-<!--
-    <br><br><br><br><br><br><br><br><br><br>
-    <a herf="{{ url_for('main') }}" role="button"></a>
--->
+                {{ form.password(placeholder="Password") }}
+                <br><br>
+                {{ form.submit }}
+             <br><br><p>No account? <a href="{{ url_for('register') }}">Register here</a></p>
+         </form>
+
+          <div class="mastfoot">
+        <div class="inner">
+          <p>By an <a href="http://www.cs.toronto.edu/~delara/courses/ece1779/" target="_blank">ECE1779</a> group</a>.</p>
+        </div>
+        </div>
+
+      </div>
+   </div>
+</div>
+
 {% endblock %}

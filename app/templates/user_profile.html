@@ -1,28 +1,60 @@
 {% extends "base.html" %}
 
-{% block headcontent %}
-<hr>
-<h1>Welcome Back, <b><i>{{username}}</i></b>! You Can:
-    <a class="btn btn-secondary" href="{{ url_for('logout') }}" role="button">logout</a>
-</h1>
-
-{% endblock %}
 
 {% block content %}
-<div class="col-md-5">
-    <h2>Upload New Images:</h2>
-    <br>
-    <p><a class="btn btn-secondary" href="{{ url_for('upload_image') }}" role="button">Upload</a></p>
+
+<div class="site-wrapper">
+   <div class="site-wrapper-inner">
+      <div class="cover-container">
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h5 class="masthead-brand">ECE1779-Assignment1 <b><i>{{session['username']}}</i></b>'s UserPage</h5>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="{{ url_for('logout') }}">Logout</a></li>
+
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+
+          <div class="inner cover">
+              <h1 class="cover-heading">Welcome Back, <b><i>{{session['username']}}</i></b></h1>
+              <p class="lead">You Can:</p>
+              <p class="lead">
+                  <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <h4>Upload New Images:</h4>
+                            <br>
+                            <p><a class="btn btn-lg btn-default" href="{{ url_for('upload_image') }}" role="button">Upload</a></p>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <h4>Browse Your Images:</h4>
+                            <br>
+                            <p><a class="btn btn-lg btn-default" href="{{ url_for('image_list',username=username) }}" role="button">Browse</a></p>
+                        </div>
+                  </div>
+
+
+              </p>
+          </div>
+
+
+
+
+          <div class="mastfoot">
+        <div class="inner">
+          <p>By an <a href="http://www.cs.toronto.edu/~delara/courses/ece1779/" target="_blank">ECE1779</a> group</a>.</p>
+        </div>
+        </div>
+
+      </div>
+   </div>
 </div>
 
-<div class="col-md-1">
-    <h2>OR:</h2>
-</div>
 
-<div class="col-md-5">
-    <h2>Browse Your Images:</h2>
-    <br>
-    <p><a class="btn btn-secondary" href="{{ url_for('image_list',username=username) }}" role="button">Browse</a></p>
-</div>
 
 {% endblock %}

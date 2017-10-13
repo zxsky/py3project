@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h5 class="masthead-brand">ECE1779-Assignment1</h5>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="{{ url_for('main') }}">Home</a></li>
+
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div class="inner cover">
+            <h1 class="cover-heading">404 NOT FOUND</h1>
+              <br>
+              <p class="lead">Seriously, nothing is found.</p>
+              <p class="lead">You'd better go back to the homepage by clicking the right-upper link.</p>
+          </div>
+
+        <div class="mastfoot">
+        <div class="inner">
+          <p>By an <a href="http://www.cs.toronto.edu/~delara/courses/ece1779/"  target="_blank">ECE1779</a> group</a>.</p>
+        </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+{% endblock %}

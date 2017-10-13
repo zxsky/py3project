@@ -1,28 +1,47 @@
 {% extends "base.html" %}
 
-{% block headcontent %}
-<hr>
-<h3>Welcome! You Can
-<a class="btn btn-secondary" href="{{ url_for('main') }}" role="button">back to index</a>
-Here
-</h3>
-{% endblock %}
-
 {% block content %}
 
-<form class="form" method="POST">
-    {{ form.hidden_tag() }}
+<div class="site-wrapper">
+   <div class="site-wrapper-inner">
+      <div class="cover-container">
 
-       {{ form.username.label }}<br>
-       {{ form.username }}
-       <br>
-       {{ form.password.label }}<br>
-       {{ form.password }}
-       <br>
-       {{ form.confirm.label }}<br>
-       {{ form.confirm }}
-       <br>
-       {{ form.submit }}
+           <div class="masthead clearfix">
+            <div class="inner">
+              <h5 class="masthead-brand">ECE1779-Assignment1</h5>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="{{ url_for('main') }}">Home</a></li>
 
-</form>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+         <form class="form" method="POST">
+             {{ form.hidden_tag() }}
+             <h4>Register Page</h4>
+                <br>
+                {{ form.username(placeholder="Username") }}
+                <br><br>
+
+                {{ form.password(placeholder="Password") }}
+                <br><br>
+
+                {{ form.confirm(placeholder="Repeat Password") }}
+                <br><br>
+                {{ form.submit }}
+
+         </form>
+
+          <div class="mastfoot">
+        <div class="inner">
+          <p>By an <a href="http://www.cs.toronto.edu/~delara/courses/ece1779/" target="_blank">ECE1779</a> group</a>.</p>
+        </div>
+        </div>
+
+      </div>
+   </div>
+</div>
+
 {% endblock %}

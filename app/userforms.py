@@ -163,3 +163,7 @@ def register():
             session['username'] = username
             return redirect(url_for('profile', username=username))
     return render_template("/register_form.html", form=form)
+
+@webapp.errorhandler(404)
+def page_not_found(e):
+    return render_template("404_error.html")

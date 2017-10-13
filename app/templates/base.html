@@ -1,45 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="ECE1779-Assignment1">
     <!-- Bootstrap core CSS -->
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
-          rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <title>ECE1779-Project1</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='myindex.css') }}" rel="stylesheet">
+    <title>ECE1779-Assignment1</title>
+
+
+<style>
+
+</style>
 </head>
 
-
 <body>
+        {% for message in get_flashed_messages(with_categories=True) %}
+            {% if message %}
+                <div class="alert alert-{{ message[0] }}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message[1] }}
+                </div>
+            {% endif %}
+        {% endfor %}
 
-
-    <div class="container">
-        {% block headcontent %}
+        {% block content %}
         {% endblock %}
-        <hr>
-            {% for message in get_flashed_messages(with_categories=True) %}
-                {% if message %}
-                    <div class="alert alert-{{ message[0] }}">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        {{ message[1] }}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        <div class="row">
-            {% block content %}
-            {% endblock %}
-        </div>
-        <hr>
-    </div>
-
 
 </body>
-
 
 </html>
 
