@@ -87,7 +87,7 @@ def login_required(func):
 #         return check_password_hash(self.pw_hash,password)
 
 
-# Verify Identity
+#  Helper Function: Verify Identity
 def verify(username, password):
     cnx = connect_DB()
     cursor = cnx.cursor()

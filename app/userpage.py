@@ -122,8 +122,8 @@ def upload():
         username = session['username']
         savefile(imagefile, username)
     else:
-        flash('Upload Failed!')
-        return redirect(url_for('profile', username=session['username']))
+        flash('Upload Failed: Unsupported Format. Allowed format are png, jpg, jpeg, gif')
+        return render_template("/imageupload_form.html")
     flash('File Uploaded Successfully!', 'success')
     
     #Close database here
