@@ -122,7 +122,7 @@ def upload():
         username = session['username']
         savefile(imagefile, username)
     else:
-        flash('Upload Failed: Unsupported Format. Allowed format are png, jpg, jpeg, gif')
+        flash('Upload Failed: Unsupported Format. Allowed format are png, jpg, jpeg, gif', 'warning')
         return render_template("/imageupload_form.html")
     flash('File Uploaded Successfully!', 'success')
     
@@ -184,7 +184,7 @@ def image_list(username):
         for row in cursor:
             userimagelist.append(row)
         return render_template("imagelist.html", cursor=userimagelist)
-    return"error!"
+    return render_template("404_error.html")
 
 
 @webapp.route('/imageview/<username>/<imageid>', methods=['GET'])
@@ -196,8 +196,11 @@ def imageview(username,imageid):
         query = '''SELECT image0, image1, image2, image3  FROM images WHERE username= %s and imageid = %s'''
         cursor.execute(query,(username,imageid))
         imagelist = cursor.fetchone()
+        if imagelist is None:
+            return render_template("404_error.html")
+        else:
         # for row in cursor:
         #     imagelist.append(row)
 
-        return render_template("imageview.html", cursor=imagelist)
-    return "error!"
+            return render_template("imageview.html", cursor=imagelist)
+    return render_template("404_error.html")
