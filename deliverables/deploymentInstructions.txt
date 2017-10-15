@@ -1,0 +1,5 @@
+Start the site:
+$ j py3project #autojump command into the project root directory
+$ flask/bin/python run.py
+
+URL: http://localhost:5000/

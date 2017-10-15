@@ -1,0 +1,13 @@
+This documentation brief describes how to use our website
+
+# Login & Registration
+In the [welcome page](http://localhost:5000/index), click "Login" Button to login, or click the "Register" to register a new user.
+
+"TestUpload" are used only for test purpose. 
+**Note: The User has to be a registered user in TestUpload.**
+
+# Upload an Image
+After login, you may upload a image by click "Upload" button. Supported image format are **png, jpg, jpeg, gif**, other file will not be accepted.
+
+# Browse Images
+After login, you may browse you Images by click "Browse" button. A list of thumbnails of your images are displayed. Click on any one of them will display the original image, as well as the three transformed images.
