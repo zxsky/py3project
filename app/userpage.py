@@ -46,9 +46,12 @@ def savefile(imagefile, username):
     """Upload Procedure:"""
     cnx = connect_DB()
     cursor = cnx.cursor()
-    
-    filename = secure_filename(imagefile.filename)
-    filename = username + filename
+    query = '''select * from images where username=%s order by imageid DESC'''
+    cursor.execute(query,(username,))
+    rownum = cursor.rowcount
+    filename = rownum+1
+    # filename = secure_filename(imagefile.filename)
+    filename = username + '_' + str(filename)
     imagefile.save(os.path.join(webapp.config['UPLOAD_FOLDER'], filename))
     # with open(os.path.join(webapp.config['UPLOAD_FOLDER'], filename)) as f:
     #     image_binary = f.read()
@@ -59,7 +62,7 @@ def savefile(imagefile, username):
     # with open(fname, "rb") as image0:
     with img.clone() as flipped:
         flipped.flip()
-        newname1 = os.path.join(webapp.config['UPLOAD_FOLDER'], 'trans_1_' + filename)
+        newname1 = os.path.join(webapp.config['UPLOAD_FOLDER'], 'trans1_' + filename)
         # flipped.save(os.path.join(webapp.config['UPLOAD_FOLDER'], newname1))
         flipped.save(filename=newname1)
     with img.clone() as cropped:
@@ -68,14 +71,14 @@ def savefile(imagefile, username):
         amplitude = 0.2
         bias = 0.7
         cropped.function('sinusoid', [frequency, phase_shift, amplitude, bias])
-        cropped.save(filename=os.path.join(webapp.config['UPLOAD_FOLDER'], "trans_2_" + filename))
+        cropped.save(filename=os.path.join(webapp.config['UPLOAD_FOLDER'], "trans2_" + filename))
     with img.clone() as colored:
         colored.evaluate(operator='rightshift', value=1, channel='blue')
         colored.evaluate(operator='leftshift', value=1, channel='red')
-        colored.save(filename=os.path.join(webapp.config['UPLOAD_FOLDER'], "trans_3_" + filename))
+        colored.save(filename=os.path.join(webapp.config['UPLOAD_FOLDER'], "trans3_" + filename))
     query = '''INSERT INTO images (username, image0, image1, image2, image3) VALUES (%s,%s,%s,%s, %s)'''
     # username = session['username']
-    cursor.execute(query, (username, filename, 'trans_1_' + filename, 'trans_2_' + filename, 'trans_3_' + filename))
+    cursor.execute(query, (username, filename, 'trans1_' + filename, 'trans2_' + filename, 'trans3_' + filename))
     cnx.commit()
     db = getattr(g, '_database', None)
     if db is not None:
